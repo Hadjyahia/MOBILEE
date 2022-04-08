@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+<soup.neumorphism.NeumorphCardView
+        android:id="@+id/neumorphCardViewToolbar"
+        style="@style/Widget.Neumorph.CardView"
+        android:layout_width="match_parent"
+        android:layout_height="71dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView4"
+        app:neumorph_shapeType="flat">
+
+        <androidx.appcompat.widget.Toolbar
+
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/teal_700"
+            app:titleTextColor="@color/white">
+            <TextView
+                android:id="@+id/textToolbar"
+                android:layout_width="150dp"
+                android:layout_marginStart="50dp"
+                android:textColor="@color/white"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:text="blood donation"/>
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profileToolbar"
+                android:layout_width="37dp"
+                android:layout_height="37dp"
+                android:layout_marginStart="60dp"
+                android:src="@drawable/profile" />
+        </androidx.appcompat.widget.Toolbar>
+
+    </soup.neumorphism.NeumorphCardView>
+
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="630dp"/>
+
+
+    <soup.neumorphism.NeumorphCardView
+        android:id="@+id/neumorphCardView1"
+        android:layout_width="match_parent"
+        android:layout_height="71dp"
+        app:neumorph_shapeType="flat">
+        <com.ismaeldivita.chipnavigation.ChipNavigationBar
+            android:id="@+id/chipNavigation"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="#fff5F5"
+            app:cnb_menuResource="@menu/nav_item"/>
+    </soup.neumorphism.NeumorphCardView>
+
+</LinearLayout>
