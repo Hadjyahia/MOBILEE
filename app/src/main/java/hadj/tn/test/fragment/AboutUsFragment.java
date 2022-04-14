@@ -70,6 +70,14 @@ public class AboutUsFragment extends Fragment {
 
         selectImageFromGallery(view);
 
+        Button deleteImage = view.findViewById(R.id.deleteProfilePhoto);
+        deleteImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imageProfile.setImageDrawable(getResources().getDrawable(R.drawable.profile));
+            }
+        });
+
     }
 
     private void editPhone(View view, API userApi, String email) {
@@ -107,7 +115,7 @@ public class AboutUsFragment extends Fragment {
                                 textViewPhone.setText(textViewPhone.getText());
                             } else if(!myPhone.matches("[0-9]{8}$")) {
                                 textViewPhone.setText(textViewPhone.getText());
-                                Toast.makeText(getActivity(), "Enter valid email", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getActivity(), "Enter valid phone", Toast.LENGTH_LONG).show();
                             } else {
                                 textViewPhone.setText(myPhone);
                                 if (getArguments() != null) {
@@ -143,51 +151,6 @@ public class AboutUsFragment extends Fragment {
                         }
                     });
 
-                  /*
-
-                    dialogEditPhone.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                        @SuppressLint("ResourceAsColor")
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            String myPhone = phoneUser.getText().toString();
-                            if (myPhone.length() == 0) {
-                                textViewPhone.setText(textViewPhone.getText());
-                            } else if(!myPhone.matches("[0-9]{8}$")) {
-                                textViewPhone.setText(textViewPhone.getText());
-                                Toast.makeText(getActivity(), "Enter valid email", Toast.LENGTH_LONG).show();
-                            } else {
-                                textViewPhone.setText(myPhone);
-                                if (getArguments() != null) {
-
-                                    User user = new User();
-                                    user.setEmail(email);
-                                    user.setPhone(myPhone);
-                                    userApi.updateUser(user)
-                                            .enqueue(new Callback<ResponseBody>() {
-                                                @Override
-                                                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                                                    if (response.code() == 200) {
-                                                        Toast.makeText(getActivity(), "phone tbadal", Toast.LENGTH_LONG).show();
-                                                    }
-                                                    else Toast.makeText(getActivity(), "phone matbadalch", Toast.LENGTH_LONG).show();
-                                                }
-                                                @Override
-                                                public void onFailure(Call<ResponseBody> call, Throwable t) {
-                                                    Toast.makeText(getActivity(), "cvppppppp", Toast.LENGTH_LONG).show();
-
-                                                }
-                                            });
-                                }
-                            }
-                        }
-                    });
-                    dialogEditPhone.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.cancel();
-                        }
-                    });
-                    dialogEditPhone.show();*/
                 }
             });
 
@@ -200,37 +163,49 @@ public class AboutUsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder dialogEditEmail = new AlertDialog.Builder(getActivity());
-                dialogEditEmail.setTitle("Change your Email");
 
-                final EditText emailUser = new EditText(getActivity());
-                emailUser.setInputType(InputType.TYPE_CLASS_TEXT);
+                final View customLayout
+                        = getLayoutInflater()
+                        .inflate(
+                                R.layout.custom_dialog_email,
+                                null);
 
-                dialogEditEmail.setView(emailUser);
+                dialogEditEmail.setView(customLayout);
 
-                dialogEditEmail.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    @SuppressLint("ResourceAsColor")
+                AlertDialog dialog = dialogEditEmail.create();
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+
+                Button ok = customLayout.findViewById(R.id.okEditEmail);
+                Button cancel = customLayout.findViewById(R.id.cancelEditEmail);
+                EditText editTextEmail = customLayout.findViewById(R.id.editTextEmail);
+
+                ok.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        String myEmail = emailUser.getText().toString();
-                        if (myEmail.length() == 0) {
+                    public void onClick(View v) {
+                        String myUsername = editTextEmail.getText().toString();
+
+                        if (myUsername.length() == 0) {
                             textViewEmail.setText(textViewEmail.getText());
-                        } else if(!Patterns.EMAIL_ADDRESS.matcher(myEmail).matches()) {
+                        } else if (!myUsername.matches("([a-zA-Z]+(\\s)*(\\s[a-zA-Z]+)*)+")) {
                             textViewEmail.setText(textViewEmail.getText());
-                            Toast.makeText(getActivity(), "Enter valid email", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getActivity(), "Enter only alphabetic characters and spaces", Toast.LENGTH_LONG).show();
                         } else {
-                            textViewEmail.setText(myEmail);
-                            if (getArguments() != null) {
+                            // textViewEmail.setText(myUsername);
+                          /*  if (getArguments() != null) {
 
                                 User user = new User();
-                                user.setEmail(myEmail); //////////////////////////////// kifeechh !!!!
+                                user.setEmail(email);
+                                user.setEmail(myUsername); /// kifech ???
                                 userApi.updateUser(user)
                                         .enqueue(new Callback<ResponseBody>() {
                                             @Override
                                             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                                                 if (response.code() == 200) {
-                                                    Toast.makeText(getActivity(), "email tbadal", Toast.LENGTH_LONG).show();
+                                                    Toast.makeText(getActivity(), "Username tbadal", Toast.LENGTH_LONG).show();
+                                                    dialog.cancel();
                                                 }
-                                                else Toast.makeText(getActivity(), "email matbadalch", Toast.LENGTH_LONG).show();
+                                                else Toast.makeText(getActivity(), "Username matbadalch", Toast.LENGTH_LONG).show();
                                             }
                                             @Override
                                             public void onFailure(Call<ResponseBody> call, Throwable t) {
@@ -238,21 +213,21 @@ public class AboutUsFragment extends Fragment {
 
                                             }
                                         });
-                            }
+                            } */
                         }
+
                     }
                 });
-                dialogEditEmail.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                cancel.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                    public void onClick(View v) {
                         dialog.cancel();
                     }
                 });
-                dialogEditEmail.show();
             }
         });
-    }
 
+}
     private void selectImageFromGallery(View view) {
 
         Button buttonEditPhoto = view.findViewById(R.id.editProfilePhoto);
@@ -272,39 +247,51 @@ public class AboutUsFragment extends Fragment {
         editName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder dialogEditName = new AlertDialog.Builder(getActivity());
-                dialogEditName.setTitle("Change your username");
 
-                final EditText username = new EditText(getActivity());
-                username.setInputType(InputType.TYPE_CLASS_TEXT);
+                AlertDialog.Builder dialogEditUsername = new AlertDialog.Builder(getActivity());
 
-                dialogEditName.setView(username);
+                final View customLayout
+                        = getLayoutInflater()
+                        .inflate(
+                                R.layout.custom_dialog_name,
+                                null);
 
-                dialogEditName.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    @SuppressLint("ResourceAsColor")
+                dialogEditUsername.setView(customLayout);
+
+                AlertDialog dialog = dialogEditUsername.create();
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+
+                Button ok = customLayout.findViewById(R.id.okEditUsername);
+                Button cancel = customLayout.findViewById(R.id.cancelEditUsername);
+                EditText editTextUsername = customLayout.findViewById(R.id.editTextUsername);
+
+                ok.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        String myText = username.getText().toString();
-                        if (myText.length() == 0) {
+                    public void onClick(View v) {
+                        String myUsername = editTextUsername.getText().toString();
+
+                        if (myUsername.length() == 0) {
                             textViewName.setText(textViewName.getText());
-                        } else if (!myText.matches("([a-zA-Z]+(\\s)*(\\s[a-zA-Z]+)*)+")) {
+                        } else if (!myUsername.matches("([a-zA-Z]+(\\s)*(\\s[a-zA-Z]+)*)+")) {
                             textViewName.setText(textViewName.getText());
                             Toast.makeText(getActivity(), "Enter only alphabetic characters and spaces", Toast.LENGTH_LONG).show();
                         } else {
-                            textViewName.setText(myText);
+                            textViewName.setText(myUsername);
                             if (getArguments() != null) {
 
                                 User user = new User();
                                 user.setEmail(email);
-                                user.setUsername(myText);
+                                user.setUsername(myUsername);
                                 userApi.updateUser(user)
                                         .enqueue(new Callback<ResponseBody>() {
                                             @Override
                                             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                                                 if (response.code() == 200) {
-                                                    Toast.makeText(getActivity(), "cvvvvv", Toast.LENGTH_LONG).show();
+                                                    Toast.makeText(getActivity(), "Username tbadal", Toast.LENGTH_LONG).show();
+                                                    dialog.cancel();
                                                 }
-                                                else Toast.makeText(getActivity(), "haja mch nrml", Toast.LENGTH_LONG).show();
+                                                else Toast.makeText(getActivity(), "Username matbadalch", Toast.LENGTH_LONG).show();
                                             }
                                             @Override
                                             public void onFailure(Call<ResponseBody> call, Throwable t) {
@@ -314,15 +301,15 @@ public class AboutUsFragment extends Fragment {
                                         });
                             }
                         }
+
                     }
                 });
-                dialogEditName.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                cancel.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                    public void onClick(View v) {
                         dialog.cancel();
                     }
                 });
-                dialogEditName.show();
             }
         });
     }

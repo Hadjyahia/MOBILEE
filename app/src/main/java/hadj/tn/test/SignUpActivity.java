@@ -143,6 +143,7 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
             editTextUsername.requestFocus();
             editTextUsername.setError("Username cannot be empty");
             return false;
+
         }else if(!username.matches("([a-zA-Z]+(\\s)*(\\s[a-zA-Z]+)*)+")){
             editTextUsername.requestFocus();
             editTextUsername.setError("Enter only alphabetic characters and spaces");

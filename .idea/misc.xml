@@ -45,6 +45,9 @@
         <entry key="app/src/main/res/layout/btn_progress_bar.xml" value="0.25" />
         <entry key="app/src/main/res/layout/child_rv_layout.xml" value="0.1" />
         <entry key="app/src/main/res/layout/custom_dialog.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/custom_dialog_email.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/custom_dialog_name.xml" value="0.19375" />
+        <entry key="app/src/main/res/layout/custom_dialog_username.xml" value="0.22" />
         <entry key="app/src/main/res/layout/dashbord_fragment.xml" value="0.178125" />
         <entry key="app/src/main/res/layout/drawer_menu.xml" value="0.178125" />
         <entry key="app/src/main/res/layout/fifth_activity.xml" value="0.22" />
